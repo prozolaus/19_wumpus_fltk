@@ -1,0 +1,8 @@
+*.o
+*.txt
+/hunt_the_wumpus
+*.html
+*.json
+*.jpg
+*.gif
+.vs
