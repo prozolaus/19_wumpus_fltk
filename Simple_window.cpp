@@ -73,6 +73,8 @@ void Wumpus_window::hazard_warnings()
 
 void Wumpus_window::hazard_caught()
 {
+    hazard_state_text.set_label("");
+    zap_text.set_label("");
     ostringstream os, os_zap;
     while (!game_over)
     {
@@ -109,8 +111,6 @@ void Wumpus_window::move_to_room(int n)
     if (!cave_ptr->player_moves(n))
         return;
     hazard_caught();
-    if (hazard_state_text.label().empty())
-        hazard_warnings();
     Point second_room = cave_ptr->get_player_loc()->coordinates;
     wumpus_map.current_room.move(second_room.x - first_room.x, second_room.y - first_room.y);
     redraw();
@@ -121,22 +121,20 @@ After_shooting_state Wumpus_window::shoot()
     cave_ptr->decrease_arrows();
     arrows.put(to_string(cave_ptr->get_arrows()));
 
-    vector<int> shoot_rooms;
-    int r1 = shoot_box1.get_int();
-    int r2 = shoot_box2.get_int();
-    int r3 = shoot_box3.get_int();
-    if (r1 >= 1 && r1 <= 20)
-        shoot_rooms.push_back(r1);
-    if (r2 >= 1 && r2 <= 20)
-        shoot_rooms.push_back(r2);
-    if (r3 >= 1 && r3 <= 20)
-        shoot_rooms.push_back(r3);
+    vector<int> inputed(3), shoot_rooms;
+    inputed[0] = shoot_box1.get_int();
+    inputed[1] = shoot_box2.get_int();
+    inputed[2] = shoot_box3.get_int();
+
+    for (int i = 0; i < inputed.size(); i++)
+        if (inputed[i] >= 1 && inputed[i] <= 20)
+            shoot_rooms.push_back(inputed[i]);
 
     Room *arrow_loc = cave_ptr->get_player_loc();
     for (int i = 0; i < shoot_rooms.size(); i++)
     {
         if (!cave_ptr->is_moved_to_adjacents(arrow_loc, shoot_rooms[i]))
-            arrow_loc = cave_ptr->get_room(randint(20));
+            arrow_loc = cave_ptr->get_room(rand() % 20 + 1);
         if (arrow_loc == cave_ptr->get_wumpus_loc())
             return After_shooting_state::wumpus_shot;
         if (arrow_loc == cave_ptr->get_player_loc())

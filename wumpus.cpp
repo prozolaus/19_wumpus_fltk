@@ -220,7 +220,7 @@ namespace Wumpus_lib
     {
         if (room < 1 && room > 20)
             error("get_room(int): Wrong number of room!");
-        return &rooms[room];
+        return &rooms[room-1];
     }
     //-----------------------------------------------------------------------------
     //-----------------------------------------------------------------------------
