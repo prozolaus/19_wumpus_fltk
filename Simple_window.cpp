@@ -53,6 +53,8 @@ void Wumpus_window::instructions()
     {
         instructions_box.hide();
         instr_button.label = "Show rules";
+        move_text.hide();
+        notes.hide();
         attach(wumpus_map);
     }
     else
@@ -63,6 +65,8 @@ void Wumpus_window::instructions()
         instructions_box.put(os.str());
         instructions_box.show();
         instr_button.label = "Hide rules";
+        move_text.show();
+        notes.show();
         detach(wumpus_map);
     }
     redraw();

@@ -37,19 +37,19 @@ struct Wumpus_window : Graph_lib::Window
       : Window(xy, w, h, title),
         cave_ptr{&wumpus_map.cave},
         arrows{Point{x_max() - 360, 69}, 20, 20, "Arrows:"},
-        instructions_box{Point{Wumpus_lib::x_indent/2, Wumpus_lib::y_indent/2}, x_max()/2, y_max(), ""},
+        instructions_box{Point{Wumpus_lib::x_indent / 2, Wumpus_lib::y_indent / 2}, x_max() / 2, y_max(), ""},
         shoot_box1{Point{x_max() - 250, 30}, 50, 20, "Room #1"},
         shoot_box2{Point{x_max() - 250, 50}, 50, 20, "Room #2"},
         shoot_box3{Point{x_max() - 250, 70}, 50, 20, "Room #3"},
-        notes{Point{x_max() - 330, 140}, "Notes:"},
+        notes{Point{x_max() - 350, 120}, 50, 20, ""},
         bats_note{Point{x_max() - 400, 150}, 150, 20, "Bats:"},
         pits_note{Point{x_max() - 400, 180}, 150, 20, "Pits:"},
         zap_text{Point{50, 30}, ""},
         hazard_state_text{Point{50, 50}, ""},
-        warn_text_bats{Point{x_max() - 230, 270}, ""},
-        warn_text_pits{Point{x_max() - 230, 290}, ""},
-        warn_text_wumpus{Point{x_max() - 230, 310}, ""},
-        move_text{Point{x_max() - 200, 140}, "Move to room #"},
+        warn_text_bats{Point{x_max() - 230, 300}, ""},
+        warn_text_pits{Point{x_max() - 230, 320}, ""},
+        warn_text_wumpus{Point{x_max() - 230, 340}, ""},
+        move_text{Point{x_max() - 210, 120}, 120, 20, ""},
         room1{Point{x_max() - 230, 150}, 30, 20, "1",
               [](Address, Address pw)
               {
@@ -218,6 +218,10 @@ struct Wumpus_window : Graph_lib::Window
     hazard_warnings();
     instructions_box.set_textsize(12);
     instructions_box.hide();
+    move_text.put("Move to room #");
+    move_text.hide();
+    notes.put("Notes");
+    notes.hide();
   }
 
 private:
@@ -225,10 +229,10 @@ private:
   Wumpus_lib::Cave *cave_ptr;
   In_box shoot_box1, shoot_box2, shoot_box3;
   In_box bats_note, pits_note;
-  Out_box arrows;
+  Out_box arrows, move_text, notes;
   Multiline_out_box instructions_box;
-  Text move_text, hazard_state_text, zap_text;
-  Text notes, warn_text_bats, warn_text_pits, warn_text_wumpus;
+  Text hazard_state_text, zap_text;
+  Text warn_text_bats, warn_text_pits, warn_text_wumpus;
   Button room1, room2, room3, room4, room5;
   Button room6, room7, room8, room9, room10;
   Button room11, room12, room13, room14, room15;
