@@ -47,6 +47,27 @@ void Simple_window::next()
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
+void Wumpus_window::instructions()
+{
+    if (instr_button.label == "Hide rules")
+    {
+        instructions_box.hide();
+        instr_button.label = "Show rules";
+        attach(wumpus_map);
+    }
+    else
+    {
+        Game game;
+        ostringstream os;
+        game.print_instructions(os);
+        instructions_box.put(os.str());
+        instructions_box.show();
+        instr_button.label = "Hide rules";
+        detach(wumpus_map);
+    }
+    redraw();
+}
+
 void Wumpus_window::hazard_warnings()
 {
     warn_text_bats.set_label("");
@@ -121,20 +142,21 @@ After_shooting_state Wumpus_window::shoot()
     cave_ptr->decrease_arrows();
     arrows.put(to_string(cave_ptr->get_arrows()));
 
-    vector<int> inputed(3), shoot_rooms;
-    inputed[0] = shoot_box1.get_int();
-    inputed[1] = shoot_box2.get_int();
-    inputed[2] = shoot_box3.get_int();
-
-    for (int i = 0; i < inputed.size(); i++)
-        if (inputed[i] >= 1 && inputed[i] <= 20)
-            shoot_rooms.push_back(inputed[i]);
+    vector<In_box *> shoot_boxes{&shoot_box1, &shoot_box2, &shoot_box3};
+    const int count = 3;
+    vector<int> shoot_rooms;
+    for (int i = 0, r = 0; i < count; i++)
+    {
+        r = shoot_boxes[i]->get_int();
+        if (r >= 1 && r <= 20)
+            shoot_rooms.push_back(r);
+    }
 
     Room *arrow_loc = cave_ptr->get_player_loc();
     for (int i = 0; i < shoot_rooms.size(); i++)
     {
         if (!cave_ptr->is_moved_to_adjacents(arrow_loc, shoot_rooms[i]))
-            arrow_loc = cave_ptr->get_room(rand() % 20 + 1);
+            arrow_loc = cave_ptr->get_adjacents(arrow_loc->number)[rand() % count];
         if (arrow_loc == cave_ptr->get_wumpus_loc())
             return After_shooting_state::wumpus_shot;
         if (arrow_loc == cave_ptr->get_player_loc())

@@ -220,7 +220,7 @@ namespace Wumpus_lib
     {
         if (room < 1 && room > 20)
             error("get_room(int): Wrong number of room!");
-        return &rooms[room-1];
+        return &rooms[room - 1];
     }
     //-----------------------------------------------------------------------------
     //-----------------------------------------------------------------------------
@@ -234,7 +234,7 @@ namespace Wumpus_lib
             int i = 0;
             cin >> i;
             if (i == 1)
-                print_instructions();
+                print_instructions(cout);
             else if (i == 2)
                 play();
             else if (i == 3)
@@ -318,42 +318,43 @@ namespace Wumpus_lib
         }
     }
 
-    void Game::print_instructions()
+    ostream &Game::print_instructions(ostream &os)
     {
-        cout << "\nWelcome to Hunt the Wumpus'!\n\n"
-             << "The Wumpus lives in a cave of 20 rooms. Each room\n"
-             << "has 3 tunnels leading to other rooms. (Look at a\n"
-             << "dodecahedron to see how this works - if you don't know\n"
-             << "what a dodecahedron is, ask someone.)\n\n"
-             << "Hazards:\n"
-             << "Bottomless pits - two rooms have bottomless pits in them.\n"
-             << "If you go there, you fall into the pit (and lose!)\n"
-             << "Super bats - two other rooms have super bats. If you\n"
-             << "go there, a bat grabs you and takes you to some other\n"
-             << "room at random (which might be troublesome).\n\n"
-             << "Wumpus:\n"
-             << "The Wumpus is not bothered by the hazards (he has sucker\n"
-             << "feet and is too big for a bat to lift). Usually\n"
-             << "he is asleep. Two things wake him up: your entering\n"
-             << "his room or your shooting an arrow.\n"
-             << "If the Wumpus wakes, he moves (75% chance) one room\n"
-             << "or stays still (25% chance). After that, if he is where you\n"
-             << "are, he eats you up (and you lose)!\n\n"
-             << "You:\n"
-             << "Each turn you may move or shoot a crooked arrow.\n"
-             << "Moving: you can go one room (through one tunnel).\n"
-             << "Arrows: you have 5 arrows. You lose when you run out.\n"
-             << "Each arrow can go from 1 to 5 rooms. You aim by telling\n"
-             << "the computer the room numbers you want the arrow to go to.\n"
-             << "If the arrow can't go that way (i.e., no tunnel) it moves\n"
-             << "at random to the next room.\n"
-             << "If the arrow hits the Wumpus, you win.\n"
-             << "If the arrow hits you, you lose.\n\n"
-             << "Warnings: when you are one room away from a hazard,\n"
-             << "the computer says:\n"
-             << "Wumpus - I smell a Wumpus!\n"
-             << "Bat - 'Bats nearby!'\n"
-             << "Pit - 'I feel a draft!'\n\n";
+        os << "\nWelcome to Hunt the Wumpus!\n\n"
+           << "The Wumpus lives in a cave of 20 rooms. Each room\n"
+           << "has 3 tunnels leading to other rooms. (Look at a\n"
+           << "dodecahedron to see how this works - if you don't know\n"
+           << "what a dodecahedron is, ask someone.)\n\n"
+           << "Hazards:\n"
+           << "Bottomless pits - two rooms have bottomless pits in them.\n"
+           << "If you go there, you fall into the pit (and lose!)\n"
+           << "Super bats - two other rooms have super bats. If you\n"
+           << "go there, a bat grabs you and takes you to some other\n"
+           << "room at random (which might be troublesome).\n\n"
+           << "Wumpus:\n"
+           << "The Wumpus is not bothered by the hazards (he has sucker\n"
+           << "feet and is too big for a bat to lift). Usually\n"
+           << "he is asleep. Two things wake him up: your entering\n"
+           << "his room or your shooting an arrow.\n"
+           << "If the Wumpus wakes, he moves (75% chance) one room\n"
+           << "or stays still (25% chance). After that, if he is where you\n"
+           << "are, he eats you up (and you lose)!\n\n"
+           << "You:\n"
+           << "Each turn you may move or shoot a crooked arrow.\n"
+           << "Moving: you can go one room (through one tunnel).\n"
+           << "Arrows: you have 5 arrows. You lose when you run out.\n"
+           << "Each arrow can go from 1 to 3 rooms. You aim by telling\n"
+           << "the computer the room numbers you want the arrow to go to.\n"
+           << "If the arrow can't go that way (i.e., no tunnel) it moves\n"
+           << "at random to the next room.\n"
+           << "If the arrow hits the Wumpus, you win.\n"
+           << "If the arrow hits you, you lose.\n\n"
+           << "Warnings: when you are one room away from a hazard,\n"
+           << "the computer says:\n"
+           << "Wumpus - I smell a Wumpus!\n"
+           << "Bat - 'Bats nearby!'\n"
+           << "Pit - 'I feel a draft!'\n\n";
+        return os;
     }
 
     //-----------------------------------------------------------------------------

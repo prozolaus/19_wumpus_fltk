@@ -78,7 +78,7 @@ namespace Wumpus_lib
     {
         void start();
         void play();
-        void print_instructions();
+        ostream &print_instructions(ostream &);
 
     private:
         Cave cave;

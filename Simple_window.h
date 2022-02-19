@@ -37,6 +37,7 @@ struct Wumpus_window : Graph_lib::Window
       : Window(xy, w, h, title),
         cave_ptr{&wumpus_map.cave},
         arrows{Point{x_max() - 360, 69}, 20, 20, "Arrows:"},
+        instructions_box{Point{Wumpus_lib::x_indent/2, Wumpus_lib::y_indent/2}, x_max()/2, y_max(), ""},
         shoot_box1{Point{x_max() - 250, 30}, 50, 20, "Room #1"},
         shoot_box2{Point{x_max() - 250, 50}, 50, 20, "Room #2"},
         shoot_box3{Point{x_max() - 250, 70}, 50, 20, "Room #3"},
@@ -159,6 +160,11 @@ struct Wumpus_window : Graph_lib::Window
                      {
                        reference_to<Wumpus_window>(pw).play_again();
                      }},
+        instr_button{Point{x_max() - 100, 80}, 100, 20, "Show rules",
+                     [](Address, Address pw)
+                     {
+                       reference_to<Wumpus_window>(pw).instructions();
+                     }},
         quit_button{Point{x_max() - 70, 0}, 70, 20, "Quit",
                     [](Address, Address pw)
                     {
@@ -202,12 +208,16 @@ struct Wumpus_window : Graph_lib::Window
     attach(room20);
     attach(shoot_button);
     attach(again_button);
+    attach(instr_button);
     attach(quit_button);
     attach(wumpus_map);
+    attach(instructions_box);
     warn_text_bats.set_color(Color::dark_blue);
     warn_text_pits.set_color(Color::dark_red);
     warn_text_wumpus.set_color(Color::red);
     hazard_warnings();
+    instructions_box.set_textsize(12);
+    instructions_box.hide();
   }
 
 private:
@@ -216,6 +226,7 @@ private:
   In_box shoot_box1, shoot_box2, shoot_box3;
   In_box bats_note, pits_note;
   Out_box arrows;
+  Multiline_out_box instructions_box;
   Text move_text, hazard_state_text, zap_text;
   Text notes, warn_text_bats, warn_text_pits, warn_text_wumpus;
   Button room1, room2, room3, room4, room5;
@@ -224,8 +235,10 @@ private:
   Button room16, room17, room18, room19, room20;
   Button shoot_button;
   Button again_button;
+  Button instr_button;
   Button quit_button;
   bool game_over;
+  void instructions();
   void move_to_room(int);
   void shoot_player();
   void play_again();

@@ -7,6 +7,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Output.H>
+#include <FL/Fl_Multiline_Output.H>
 #include "GUI.h"
 #include <string>
 
@@ -61,6 +62,29 @@ void Out_box::put(const string& s)
 void Out_box::attach(Window& win)
 {
     pw = new Fl_Output(loc.x, loc.y, width, height, label.c_str());
+    own = &win;
+}
+
+
+//------------------------------------------------------------------------------
+
+void Multiline_out_box::put(const string& s)
+{
+    reference_to<Fl_Multiline_Output>(pw).value(s.c_str());
+}
+
+//------------------------------------------------------------------------------
+
+void Multiline_out_box::set_textsize(int s)
+{
+    reference_to<Fl_Multiline_Output>(pw).textsize(s);
+}
+
+//------------------------------------------------------------------------------
+
+void Multiline_out_box::attach(Window& win)
+{
+    pw = new Fl_Multiline_Output(loc.x,loc.y,width,height,label.c_str());
     own = &win;
 }
 
