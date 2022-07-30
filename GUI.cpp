@@ -52,6 +52,13 @@ void In_box::attach(Window& win)
 
 //------------------------------------------------------------------------------
 
+void In_box::put(const string& s)
+{
+    reference_to<Fl_Output>(pw).value(s.c_str());
+}
+
+//------------------------------------------------------------------------------
+
 void Out_box::put(const string& s)
 {
     reference_to<Fl_Output>(pw).value(s.c_str());

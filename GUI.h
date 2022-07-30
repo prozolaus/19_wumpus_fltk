@@ -85,6 +85,8 @@ namespace Graph_lib
         string get_string();
 
         void attach(Window &win);
+
+        void put(const string &s);
     };
 
     //------------------------------------------------------------------------------

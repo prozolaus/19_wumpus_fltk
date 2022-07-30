@@ -203,6 +203,16 @@ void Wumpus_window::shoot_player()
     redraw();
 }
 
+void Wumpus_window::clear_fields()
+{
+    shoot_box1.put("");
+    shoot_box2.put("");
+    shoot_box3.put("");
+    bats_note.put("");
+    pits_note.put("");
+    wumpus_note.put("");
+}
+
 void Wumpus_window::play_again()
 {
     game_over = false;
@@ -212,7 +222,9 @@ void Wumpus_window::play_again()
     Point second_room = cave_ptr->get_player_loc()->coordinates;
     wumpus_map.current_room.move(second_room.x - first_room.x, second_room.y - first_room.y);
     hazard_state_text.set_label("");
+    zap_text.set_label("");
     hazard_state_text.set_color(Color::black);
     hazard_warnings();
+    clear_fields();
     redraw();
 }

@@ -42,8 +42,9 @@ struct Wumpus_window : Graph_lib::Window
         shoot_box2{Point{x_max() - 250, 50}, 50, 20, "Room #2"},
         shoot_box3{Point{x_max() - 250, 70}, 50, 20, "Room #3"},
         notes{Point{x_max() - 350, 120}, 50, 20, ""},
-        bats_note{Point{x_max() - 400, 150}, 150, 20, "Bats:"},
-        pits_note{Point{x_max() - 400, 180}, 150, 20, "Pits:"},
+        bats_note{Point{x_max() - 380, 150}, 130, 20, "Bats:"},
+        pits_note{Point{x_max() - 380, 180}, 130, 20, "Pits:"},
+        wumpus_note{Point{x_max() - 380, 210}, 130, 20, "Wumpus:"},
         zap_text{Point{50, 30}, ""},
         hazard_state_text{Point{50, 50}, ""},
         warn_text_bats{Point{x_max() - 230, 300}, ""},
@@ -178,6 +179,7 @@ struct Wumpus_window : Graph_lib::Window
     attach(notes);
     attach(bats_note);
     attach(pits_note);
+    attach(wumpus_note);
     attach(arrows);
     arrows.put(to_string(cave_ptr->get_arrows()));
     attach(zap_text);
@@ -228,7 +230,7 @@ private:
   Wumpus_map wumpus_map;
   Wumpus_lib::Cave *cave_ptr;
   In_box shoot_box1, shoot_box2, shoot_box3;
-  In_box bats_note, pits_note;
+  In_box bats_note, pits_note, wumpus_note;
   Out_box arrows, move_text, notes;
   Multiline_out_box instructions_box;
   Text hazard_state_text, zap_text;
@@ -245,6 +247,7 @@ private:
   void instructions();
   void move_to_room(int);
   void shoot_player();
+  void clear_fields();
   void play_again();
   After_shooting_state shoot();
   void hazard_caught();
