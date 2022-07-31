@@ -781,12 +781,15 @@ namespace Graph_lib
     {
         cave.shuffle();
         current_room.move(cave.get_player_loc()->coordinates.x, cave.get_player_loc()->coordinates.y);
+        current_room.set_color(Color::black);
         for (int i = 1; i <= 20; i++)
         {
             tunnels.push_back(new Lines{{cave.get_coords(i), cave.get_adjacents(i)[0]->coordinates},
                                         {cave.get_coords(i), cave.get_adjacents(i)[1]->coordinates},
                                         {cave.get_coords(i), cave.get_adjacents(i)[2]->coordinates}});
+            tunnels[tunnels.size() - 1].set_color(Color::black);
             labels.push_back(new Text(cave.get_coords(i), to_string(i)));
+            labels[labels.size() - 1].set_color(Color::black);
         }
     }
 

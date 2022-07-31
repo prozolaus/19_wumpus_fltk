@@ -220,6 +220,8 @@ struct Wumpus_window : Graph_lib::Window
     attach(quit_button);
     attach(wumpus_map);
     attach(instructions_box);
+    zap_text.set_color(Color::black);
+    hazard_state_text.set_color(Color::black);
     warn_text_bats.set_color(Color::dark_blue);
     warn_text_pits.set_color(Color::dark_red);
     warn_text_wumpus.set_color(Color::red);

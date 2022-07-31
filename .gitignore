@@ -6,3 +6,16 @@
 *.jpg
 *.gif
 .vs
+*.lastbuildstate
+*.tlog
+*.recipe
+*.ilk
+*.log
+*.pdb
+*.obj
+*.idb
+*.user
+*.filters
+*.vcxproj
+*.sln
+*.exe
