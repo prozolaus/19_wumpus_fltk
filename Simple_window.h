@@ -151,6 +151,11 @@ struct Wumpus_window : Graph_lib::Window
                {
                  reference_to<Wumpus_window>(pw).move_to_room(20);
                }},
+        clear_button{Point{x_max() - 250, 10}, 50, 20, "Clear",
+                     [](Address, Address pw)
+                     {
+                       reference_to<Wumpus_window>(pw).clear_rooms();
+                     }},
         shoot_button{Point{x_max() - 200, 50}, 70, 20, "Shoot",
                      [](Address, Address pw)
                      {
@@ -208,6 +213,7 @@ struct Wumpus_window : Graph_lib::Window
     attach(room18);
     attach(room19);
     attach(room20);
+    attach(clear_button);
     attach(shoot_button);
     attach(again_button);
     attach(instr_button);
@@ -239,6 +245,7 @@ private:
   Button room6, room7, room8, room9, room10;
   Button room11, room12, room13, room14, room15;
   Button room16, room17, room18, room19, room20;
+  Button clear_button;
   Button shoot_button;
   Button again_button;
   Button instr_button;
@@ -247,7 +254,8 @@ private:
   void instructions();
   void move_to_room(int);
   void shoot_player();
-  void clear_fields();
+  void clear_rooms();
+  void clear_all_fields();
   void play_again();
   After_shooting_state shoot();
   void hazard_caught();

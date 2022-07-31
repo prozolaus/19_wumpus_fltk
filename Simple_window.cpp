@@ -203,11 +203,16 @@ void Wumpus_window::shoot_player()
     redraw();
 }
 
-void Wumpus_window::clear_fields()
+void Wumpus_window::clear_rooms()
 {
     shoot_box1.put("");
     shoot_box2.put("");
     shoot_box3.put("");
+}
+
+void Wumpus_window::clear_all_fields()
+{
+    clear_rooms();
     bats_note.put("");
     pits_note.put("");
     wumpus_note.put("");
@@ -225,6 +230,6 @@ void Wumpus_window::play_again()
     zap_text.set_label("");
     hazard_state_text.set_color(Color::black);
     hazard_warnings();
-    clear_fields();
+    clear_all_fields();
     redraw();
 }
