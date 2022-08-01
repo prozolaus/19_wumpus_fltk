@@ -6,7 +6,7 @@ int main()
 try
 {
   Point top_left{0, 0}; //will be top left corner of window
-  Wumpus_window win{top_left, 1000, 650, "Hunt the Wumpus"};
+  Wumpus_window win{top_left, 1000, 650, "Полювання на Вампуса"};
   return gui_main();
 }
 catch (const std::exception &e)
