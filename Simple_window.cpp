@@ -49,10 +49,10 @@ void Simple_window::next()
 
 void Wumpus_window::instructions()
 {
-    if (instr_button.label == "Hide rules")
+    if (instr_button.label == "Сховати")
     {
         instructions_box.hide();
-        instr_button.label = "Show rules";
+        instr_button.label = "Правила";
         move_text.hide();
         notes.hide();
         attach(wumpus_map);
@@ -64,7 +64,7 @@ void Wumpus_window::instructions()
         game.print_instructions(os);
         instructions_box.put(os.str());
         instructions_box.show();
-        instr_button.label = "Hide rules";
+        instr_button.label = "Сховати";
         move_text.show();
         notes.show();
         detach(wumpus_map);
@@ -81,15 +81,15 @@ void Wumpus_window::hazard_warnings()
     if (cave_ptr->get_player_loc()->adjacents[0]->has_bat ||
         cave_ptr->get_player_loc()->adjacents[1]->has_bat ||
         cave_ptr->get_player_loc()->adjacents[2]->has_bat)
-        os_bats << "Bats nearby! ";
+        os_bats << "Кажани поруч! ";
     if (cave_ptr->get_player_loc()->adjacents[0]->has_pit ||
         cave_ptr->get_player_loc()->adjacents[1]->has_pit ||
         cave_ptr->get_player_loc()->adjacents[2]->has_pit)
-        os_pits << "I feel a draft! ";
+        os_pits << "Поруч яма! ";
     if (cave_ptr->get_player_loc()->adjacents[0] == cave_ptr->get_wumpus_loc() ||
         cave_ptr->get_player_loc()->adjacents[1] == cave_ptr->get_wumpus_loc() ||
         cave_ptr->get_player_loc()->adjacents[2] == cave_ptr->get_wumpus_loc())
-        os_wumpus << "I smell the Wumpus!";
+        os_wumpus << "Смердить Вампусом!";
     warn_text_bats.set_label(os_bats.str());
     warn_text_pits.set_label(os_pits.str());
     warn_text_wumpus.set_label(os_wumpus.str());
@@ -105,18 +105,18 @@ void Wumpus_window::hazard_caught()
     {
         if (cave_ptr->get_wumpus_loc() == cave_ptr->get_player_loc())
         {
-            os << "TSK TSK TSK - Wumpus got you! Ha ha ha! You lose!";
+            os << "Аааааа - Вампус натрапив на Вас і з'їв!";
             game_over = true;
         }
         else if (cave_ptr->get_player_loc()->has_pit)
         {
-            os << "YYYIIIIEEEE . . . Fell in pit. Ha ha ha! You lose!";
+            os << "Аааааа . . . Ви впали в яму і програли!";
             game_over = true;
         }
         else if (cave_ptr->get_player_loc()->has_bat)
         {
             if (os_zap.str().empty())
-                os_zap << "ZAP - super bat snatch! Elsewhereville for you!";
+                os_zap << "Цап - супер кажан схопив Вас і кудись закинув!";
             cave_ptr->bats_flight();
         }
         else
@@ -180,13 +180,13 @@ void Wumpus_window::shoot_player()
     switch (state)
     {
     case wumpus_shot:
-        os << "Congratulations! You got the Wumpus! But the Wumpus'll getcha next time! Hee hee!";
+        os << "Круто! Ви підстрелили Вампуса! Вітаю з перемогою!";
         break;
     case player_shot:
-        os << "Ouch! Arrow got you! Ha ha ha - you lose!";
+        os << "Ай! Стріла влучила у Вас! Ви програли!";
         break;
     case no_arrows:
-        os << "You have run out of arrows! Ha ha ha - you lose!";
+        os << "У Вас більше немає стріл! Ви програли!";
     default: // wumpus awakened
         cave_ptr->wumpus_woke_up();
         break;

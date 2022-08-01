@@ -36,21 +36,21 @@ struct Wumpus_window : Graph_lib::Window
   Wumpus_window(Point xy, int w, int h, const string &title)
       : Window(xy, w, h, title),
         cave_ptr{&wumpus_map.cave},
-        arrows{Point{x_max() - 360, 69}, 20, 20, "Arrows:"},
+        arrows{Point{x_max() - 380, 30}, 20, 20, "Ваші стріли:"},
         instructions_box{Point{Wumpus_lib::x_indent / 2, Wumpus_lib::y_indent / 2}, x_max() / 2, y_max(), ""},
-        shoot_box1{Point{x_max() - 250, 30}, 50, 20, "Room #1"},
-        shoot_box2{Point{x_max() - 250, 50}, 50, 20, "Room #2"},
-        shoot_box3{Point{x_max() - 250, 70}, 50, 20, "Room #3"},
-        notes{Point{x_max() - 350, 120}, 50, 20, ""},
-        bats_note{Point{x_max() - 380, 150}, 130, 20, "Bats:"},
-        pits_note{Point{x_max() - 380, 180}, 130, 20, "Pits:"},
-        wumpus_note{Point{x_max() - 380, 210}, 130, 20, "Wumpus:"},
+        shoot_box1{Point{x_max() - 250, 30}, 50, 20, "Кімната #1"},
+        shoot_box2{Point{x_max() - 250, 50}, 50, 20, "Кімната #2"},
+        shoot_box3{Point{x_max() - 250, 70}, 50, 20, "Кімната #3"},
+        notes{Point{x_max() - 370, 120}, 80, 20, ""},
+        bats_note{Point{x_max() - 380, 150}, 130, 20, "Кажани:"},
+        pits_note{Point{x_max() - 380, 180}, 130, 20, "Ями:"},
+        wumpus_note{Point{x_max() - 380, 210}, 135, 20, "Вампус:"},
         zap_text{Point{50, 30}, ""},
         hazard_state_text{Point{50, 50}, ""},
         warn_text_bats{Point{x_max() - 230, 300}, ""},
         warn_text_pits{Point{x_max() - 230, 320}, ""},
         warn_text_wumpus{Point{x_max() - 230, 340}, ""},
-        move_text{Point{x_max() - 210, 120}, 120, 20, ""},
+        move_text{Point{x_max() - 220, 120}, 140, 20, ""},
         room1{Point{x_max() - 230, 150}, 30, 20, "1",
               [](Address, Address pw)
               {
@@ -151,27 +151,27 @@ struct Wumpus_window : Graph_lib::Window
                {
                  reference_to<Wumpus_window>(pw).move_to_room(20);
                }},
-        clear_button{Point{x_max() - 250, 10}, 50, 20, "Clear",
+        clear_button{Point{x_max() - 260, 10}, 70, 20, "Очистити",
                      [](Address, Address pw)
                      {
                        reference_to<Wumpus_window>(pw).clear_rooms();
                      }},
-        shoot_button{Point{x_max() - 200, 50}, 70, 20, "Shoot",
+        shoot_button{Point{x_max() - 200, 50}, 70, 20, "Стріляти",
                      [](Address, Address pw)
                      {
                        reference_to<Wumpus_window>(pw).shoot_player();
                      }},
-        again_button{Point{x_max() - 100, 50}, 100, 20, "Play again",
+        again_button{Point{x_max() - 100, 50}, 100, 20, "Грати ще",
                      [](Address, Address pw)
                      {
                        reference_to<Wumpus_window>(pw).play_again();
                      }},
-        instr_button{Point{x_max() - 100, 80}, 100, 20, "Show rules",
+        instr_button{Point{x_max() - 100, 80}, 100, 20, "Правила",
                      [](Address, Address pw)
                      {
                        reference_to<Wumpus_window>(pw).instructions();
                      }},
-        quit_button{Point{x_max() - 70, 0}, 70, 20, "Quit",
+        quit_button{Point{x_max() - 70, 0}, 70, 20, "Вихід",
                     [](Address, Address pw)
                     {
                       reference_to<Wumpus_window>(pw).quit();
@@ -228,9 +228,9 @@ struct Wumpus_window : Graph_lib::Window
     hazard_warnings();
     instructions_box.set_textsize(12);
     instructions_box.hide();
-    move_text.put("Move to room #");
+    move_text.put("Йти до кімнати №");
     move_text.hide();
-    notes.put("Notes");
+    notes.put("Примітки");
     notes.hide();
   }
 
